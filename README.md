@@ -1,4 +1,4 @@
-# Du_an1
+# GearUp E-commerce
 
 This project is a Java-based application built with NetBeans. It is a management system for a retail or e-commerce platform, featuring a modern UI with a login screen and comprehensive modules for sales, product management, employee management, customer management, promotions, and statistics.
 
