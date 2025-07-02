@@ -15,25 +15,57 @@ public class DbConnection {
     public static final String USERNAME = "sa";
     public static final String PASSWORD = "1";
 
-    /**
-     * Get connection to MSSQL Server
-     *
-     * @return Connection
-     */
-    public static Connection getConnection() {
+    // Save a single shared connection to avoid expensive connection creation on every call
+    private static Connection sharedConnection;
 
-        // Create a variable for the connection string.
-        String connectionUrl = "jdbc:sqlserver://" + HOSTNAME + ":" + PORT + ";"
-                + "databaseName=" + DBNAME +";encrypt=true;trustServerCertificate=true;";
-
+    static {
         try {
+            // Load driver once during class initialization
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            return DriverManager.getConnection(connectionUrl, USERNAME, PASSWORD);
-        } // Handle any errors that may have occurred.
-        catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace(System.out);
+        } catch (ClassNotFoundException ex) {
+            // If the driver cannot be loaded the application cannot function – re-throw as unchecked
+            throw new ExceptionInInitializerError(ex);
         }
-        return null;
+    }
+
+    /**
+     * Lazily create (if necessary) and return a shared {@link Connection} instance.
+     * <p>
+     * Creating a JDBC connection is an expensive operation. Reusing the same
+     * connection for the lifetime of the application can dramatically reduce
+     * application start-up times and the latency of every repository method
+     * that needs DB access. In low-concurrency desktop applications this simple
+     * singleton approach is usually sufficient and avoids introducing an
+     * external connection-pool dependency.
+     * </p>
+     */
+    public static synchronized Connection getConnection() {
+        try {
+            if (sharedConnection == null || sharedConnection.isClosed()) {
+                String connectionUrl = "jdbc:sqlserver://" + HOSTNAME + ":" + PORT + ";"
+                        + "databaseName=" + DBNAME + ";encrypt=true;trustServerCertificate=true;";
+                // Create the physical connection only once
+                sharedConnection = DriverManager.getConnection(connectionUrl, USERNAME, PASSWORD);
+            }
+            return sharedConnection;
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+            return null;
+        }
+    }
+
+    /**
+     * Gracefully close the shared connection when the application terminates.
+     */
+    public static synchronized void close() {
+        if (sharedConnection != null) {
+            try {
+                sharedConnection.close();
+            } catch (SQLException ignore) {
+            } finally {
+                sharedConnection = null;
+            }
+        }
     }
 
     public static void main(String[] args) {
