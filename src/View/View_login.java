@@ -10,9 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import Repository.Repository_NhanVien;
 import Repository.Global;
-import java.awt.Image;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
+import Util.ImageCache;
 
 /**
  *
@@ -33,10 +31,7 @@ public class View_login extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.dispose();
         this.setUndecorated(true);
-        Icon i = imgLogin.getIcon();
-        ImageIcon icon = (ImageIcon)i;
-        Image image = icon.getImage().getScaledInstance(imgLogin.getWidth(), imgLogin.getHeight(), Image.SCALE_SMOOTH);
-        imgLogin.setIcon(new ImageIcon(image));
+        imgLogin.setIcon(ImageCache.getScaledIcon("/images/login.png", imgLogin.getWidth(), imgLogin.getHeight()));
     }
 
     /**
