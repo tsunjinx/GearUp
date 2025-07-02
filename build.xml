@@ -70,4 +70,33 @@
     nbproject/build-impl.xml file. 
 
     -->
+    <!-- === Bundle-size & optimisation extensions === -->
+    <!-- Location of a local ProGuard distribution (adjust if necessary). -->
+    <property name="proguard.home" value="libs/proguard"/>
+    <property name="proguard.jar" value="${proguard.home}/lib/proguard.jar"/>
+    <property name="proguard.config" value="proguard.pro"/>
+
+    <!-- Flag becomes true when the user has placed a ProGuard JAR at the
+         expected location so the -post-jar target can run automatically. -->
+    <available property="proguard.available" file="${proguard.jar}"/>
+
+    <!-- Strip development-only artefacts before resources are packed -->
+    <target name="-pre-jar">
+        <delete includeemptydirs="false">
+            <fileset dir="${build.classes.dir}">
+                <include name="**/*.form"/>
+                <include name="**/.DS_Store"/>
+            </fileset>
+        </delete>
+    </target>
+
+    <!-- Optionally run ProGuard for byte-code shrinking/optimisation if the
+         tool is available in the project. The resulting minimised JAR is
+         written next to the regular one. -->
+    <target name="-post-jar" if="proguard.available">
+        <java jar="${proguard.jar}" fork="true" failonerror="true" maxmemory="512m">
+            <arg value="@${proguard.config}"/>
+        </java>
+        <echo message="ProGuard optimisation applied: see ${dist.dir}/${ant.project.name}-min.jar"/>
+    </target>
 </project>
