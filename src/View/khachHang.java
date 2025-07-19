@@ -4,7 +4,6 @@
  */
 package View;
 
-import Model.Model_khachHang;
 import Repository.Responsitory_khachHang;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -31,10 +30,10 @@ public class khachHang extends javax.swing.JPanel {
         fillTable(repo.getAll());
     }
 
-    private void fillTable(ArrayList<Model_khachHang> all) {
+    private void fillTable(ArrayList<Model.Model_khachHang> all) {
         mol = (DefaultTableModel) tbl_danhSachKhachHang.getModel();
         mol.setRowCount(0);
-        for (Model_khachHang x : all) {
+        for (Model.Model_khachHang x : all) {
             mol.addRow(x.toDataRow());
         }
     }
@@ -65,7 +64,7 @@ public class khachHang extends javax.swing.JPanel {
         cbo_tinhTrangkhachHang.setSelectedItem(trangThai);
     }
 
-    private Model_khachHang readForm_KhacHang() {
+    private Model.Model_khachHang readForm_KhacHang() {
 
         String IDKhachHang;
         String tenKH;
@@ -126,10 +125,10 @@ public class khachHang extends javax.swing.JPanel {
             }
         }
 
-        return new Model_khachHang(IDKhachHang, tenKH, SDT, email, gioiTinh, trangThai);
+        return new Model.Model_khachHang(IDKhachHang, tenKH, SDT, email, gioiTinh, trangThai);
     }
 
-    private Model_khachHang readForm_KhacHang1() {
+    private Model.Model_khachHang readForm_KhacHang1() {
         String maCu = tbl_danhSachKhachHang.getValueAt(i, 0).toString();
         String IDKhachHang;
         String tenKH;
@@ -186,7 +185,7 @@ public class khachHang extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Số điện thoại bắt đầu bằng số 0");
             return null;
         }
-        return new Model_khachHang(IDKhachHang, tenKH, SDT, email, gioiTinh, trangThai);
+        return new Model.Model_khachHang(IDKhachHang, tenKH, SDT, email, gioiTinh, trangThai);
     }
 
     /**

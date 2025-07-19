@@ -11,7 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.*;
 import java.util.ArrayList;
-import DBCon.DbConnection;
+import Database.DBConnect;
 
 /**
  *
@@ -25,14 +25,14 @@ public class Responsitory_khachHang {
     private String sql = null;
 
     public Responsitory_khachHang() {
-        con = DbConnection.getConnection();
+        con = DBConnect.getConnection();
     }
 
     public ArrayList<Model_khachHang> getAll() {
         sql = "select IDKhachHang,Ten,SoDienThoai,NGayTao,NgaySua,Email,GioiTinh,TrangThai from KhachHang";
         ArrayList<Model_khachHang> list = new ArrayList<>();
         try {
-            con = DBCon.DbConnection.getConnection();
+            con = Database.DBConnect.getConnection();
             pre = con.prepareStatement(sql);
             res = pre.executeQuery();
             while (res.next()) {
@@ -65,7 +65,7 @@ public class Responsitory_khachHang {
     public int add_khachHang(Model_khachHang ml) {
         sql = "insert into KhachHang(IDKhachHang,Ten,SoDienThoai,NgayTao,NgaySua,Email,GioiTinh,TrangThai) values (?,?,?,GETDATE(),GETDATE(),?,?,?) ";
         try {
-            con = DBCon.DbConnection.getConnection();
+            con = Database.DBConnect.getConnection();
             pre = con.prepareStatement(sql);
             pre.setObject(1, ml.getIDKhachHang());
             pre.setObject(2, ml.getTenKH());
@@ -83,7 +83,7 @@ public class Responsitory_khachHang {
     public int update_khachHang(String IDKhachHang1, Model_khachHang ml) {
         sql = "update  KhachHang set IDKhachHang=?,Ten=?,SoDienThoai=?,NgaySua= GETDATE(),Email=?,GioiTinh=?,TrangThai=? where IDKhachHang=? ";
         try {
-            con = DBCon.DbConnection.getConnection();
+            con = Database.DBConnect.getConnection();
             pre = con.prepareStatement(sql);
             pre.setObject(1, ml.getIDKhachHang());
             pre.setObject(2, ml.getTenKH());
@@ -101,7 +101,7 @@ public class Responsitory_khachHang {
 
     public String TimTen_TheoSDT(String sdt) throws SQLException{
         sql = "select Ten from KhachHang where SoDienThoai = ?";
-        con = DbConnection.getConnection();
+        con = DBConnect.getConnection();
         pre = con.prepareStatement(sql);
         pre.setObject(1, sdt);
         res = pre.executeQuery();
@@ -117,7 +117,7 @@ public class Responsitory_khachHang {
         sql = "select IDKhachHang,Ten,SoDienThoai,NGayTao,NgaySua,Email,GioiTinh,TrangThai from KhachHang where Ten like ? ";
         ArrayList<Model_khachHang> list = new ArrayList();
         try {// kết nối data lấy dữ liệu ok
-            con = DBCon.DbConnection.getConnection();
+            con = Database.DBConnect.getConnection();
             pre = con.prepareStatement(sql);// chuẩn bị thực hiện lệnh
             pre.setObject(1, "%" + tenKH1 + "%");
             res = pre.executeQuery();// kết quả truy vấn
@@ -154,7 +154,7 @@ public class Responsitory_khachHang {
         sql = "select IDKhachHang,Ten,SoDienThoai,NGayTao,NgaySua,Email,GioiTinh,TrangThai from KhachHang where TrangThai = 1 ";
         ArrayList<Model_khachHang> list = new ArrayList<>();
         try {
-            con = DBCon.DbConnection.getConnection();
+            con = Database.DBConnect.getConnection();
             pre = con.prepareStatement(sql);
            
             res = pre.executeQuery();
@@ -188,7 +188,7 @@ public class Responsitory_khachHang {
         sql = "select IDKhachHang,Ten,SoDienThoai,NGayTao,NgaySua,Email,GioiTinh,TrangThai from KhachHang where TrangThai = 0 ";
         ArrayList<Model_khachHang> list = new ArrayList<>();
         try {
-            con = DBCon.DbConnection.getConnection();
+            con = Database.DBConnect.getConnection();
             pre = con.prepareStatement(sql);
            
             res = pre.executeQuery();
@@ -222,7 +222,7 @@ public class Responsitory_khachHang {
         sql = "select IDKhachHang,Ten,SoDienThoai,NGayTao,NgaySua,Email,GioiTinh,TrangThai from KhachHang where IDKhachHang=? ";
         ArrayList<Model_khachHang> list = new ArrayList<>();
         try {
-            con = DBCon.DbConnection.getConnection();
+            con = Database.DBConnect.getConnection();
             pre = con.prepareStatement(sql);
            pre.setObject(1, maKH);
             res = pre.executeQuery();

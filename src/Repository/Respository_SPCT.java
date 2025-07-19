@@ -10,7 +10,7 @@ public class Respository_SPCT {
     public Connection con = null;
     public PreparedStatement ps = null ; 
     public Respository_SPCT() {
-        con = DBCon.DbConnection.getConnection();
+        con = Database.DBConnect.getConnection();
     }
 
     public ArrayList<Model.Model_SPCT> GetAll_SPCT() throws SQLException {

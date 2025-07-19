@@ -8,7 +8,7 @@ import Model.Model_chatLieu;
 import Model.Model_kichThuoc;
 import Model.Model_loaiDay;
 import Model.Model_mauSac;
-import DBCon.DbConnection;
+import Database.DBConnect;
 import java.sql.*;
 import java.util.ArrayList;
 /**
@@ -23,13 +23,13 @@ public class Responsitory_ThuocTinhSanPham {
     public String sql = null;
 
     public Responsitory_ThuocTinhSanPham() {
-        con = DbConnection.getConnection();
+        con = DBConnect.getConnection();
     }
     
     public ArrayList<Model_loaiDay> getAll_LoaiDay() throws SQLException{
         sql = "select IDLoaiDay,Ten,TrangThai from LoaiDay";
         ArrayList<Model_loaiDay> lst_LoaiDay = new ArrayList<>();
-        con = DBCon.DbConnection.getConnection();
+        con = Database.DBConnect.getConnection();
         stm = con.createStatement();
         rs = stm.executeQuery(sql);
         while (rs.next()) {            
@@ -39,7 +39,7 @@ public class Responsitory_ThuocTinhSanPham {
         return lst_LoaiDay;
     }
     public int add_LoaiDay(Model_loaiDay ld) throws SQLException{
-        con = DBCon.DbConnection.getConnection();
+        con = Database.DBConnect.getConnection();
         sql = "insert LoaiDay(IDLoaiDay,Ten,NgayTao,NgaySua,TrangThai) values(?,?,GETDATE(),GETDATE(),?)";
         pre = con.prepareStatement(sql);
         pre.setObject(1, ld.getMaLoaiGiay());
@@ -49,7 +49,7 @@ public class Responsitory_ThuocTinhSanPham {
     }
     public int update_LoaiDay(Model_loaiDay ld) throws SQLException{
         sql = "update LoaiDay set Ten = ?,NgaySua = GETDATE(),TrangThai = ? where IDLoaiDay = ?";
-        con = DBCon.DbConnection.getConnection();
+        con = Database.DBConnect.getConnection();
         pre = con.prepareStatement(sql);
         pre.setObject(1, ld.getLoaiGiay());
         pre.setObject(2, ld.getTrangthai());
@@ -59,7 +59,7 @@ public class Responsitory_ThuocTinhSanPham {
     public ArrayList<Model_mauSac> getAll_mauSac() throws SQLException{
         sql = "select IDMauSac,Ten,TrangThai from MauSac";
         ArrayList<Model_mauSac> lst_MauSac = new ArrayList<>();
-        con = DBCon.DbConnection.getConnection();
+        con = Database.DBConnect.getConnection();
         stm = con.createStatement();
         rs = stm.executeQuery(sql);
         while (rs.next()) {            
@@ -69,7 +69,7 @@ public class Responsitory_ThuocTinhSanPham {
         return lst_MauSac;
     }
     public int add_MauSac(Model_mauSac ld) throws SQLException{
-        con = DBCon.DbConnection.getConnection();
+        con = Database.DBConnect.getConnection();
         sql = "insert MauSac(IDMauSac,Ten,NgayTao,NgaySua,TrangThai) values(?,?,GETDATE(),GETDATE(),?)";
         pre = con.prepareStatement(sql);
         pre.setObject(1, ld.getMaMauSac());
@@ -79,7 +79,7 @@ public class Responsitory_ThuocTinhSanPham {
     }
     public int update_MauSac(Model_mauSac ld) throws SQLException{
         sql = "update MauSac set Ten = ?,NgaySua = GETDATE(),TrangThai = ? where IDMauSac = ?";
-        con = DBCon.DbConnection.getConnection();
+        con = Database.DBConnect.getConnection();
         pre = con.prepareStatement(sql);
         pre.setObject(1, ld.getTenMauSac());
         pre.setObject(2, ld.getTrangThai());
@@ -89,7 +89,7 @@ public class Responsitory_ThuocTinhSanPham {
     public ArrayList<Model_kichThuoc> getAll_KichThuoc() throws SQLException{
         sql = "select IDKichThuoc,Ten,TrangThai from KichThuoc";
         ArrayList<Model_kichThuoc> lst_KichThuoc = new ArrayList<>();
-        con = DBCon.DbConnection.getConnection();
+        con = Database.DBConnect.getConnection();
         stm = con.createStatement();
         rs = stm.executeQuery(sql);
         while (rs.next()) {            
@@ -99,7 +99,7 @@ public class Responsitory_ThuocTinhSanPham {
         return lst_KichThuoc;
     }
     public int add_KichThuoc(Model_kichThuoc ld) throws SQLException{
-        con = DBCon.DbConnection.getConnection();
+        con = Database.DBConnect.getConnection();
         sql = "insert KichThuoc(IDKichThuoc,Ten,NgayTao,NgaySua,TrangThai) values(?,?,GETDATE(),GETDATE(),?)";
         pre = con.prepareStatement(sql);
         pre.setObject(1, ld.getMaKichThuoc());
@@ -109,7 +109,7 @@ public class Responsitory_ThuocTinhSanPham {
     }
     public int update_KichThuoc(Model_kichThuoc ld) throws SQLException{
         sql = "update KichThuoc set Ten = ?,NgaySua = GETDATE(),TrangThai = ? where IDKichThuoc = ?";
-        con = DBCon.DbConnection.getConnection();
+        con = Database.DBConnect.getConnection();
         pre = con.prepareStatement(sql);
         pre.setObject(1, ld.getKichThuoc());
         pre.setObject(2, ld.getTrangThai());
@@ -119,7 +119,7 @@ public class Responsitory_ThuocTinhSanPham {
     public ArrayList<Model_chatLieu> getAll_ChatLieu() throws SQLException{
         sql = "select IDChatLieu,Ten,TrangThai from ChatLieu";
         ArrayList<Model_chatLieu> lst_ChatLieu = new ArrayList<>();
-        con = DBCon.DbConnection.getConnection();
+        con = Database.DBConnect.getConnection();
         stm = con.createStatement();
         rs = stm.executeQuery(sql);
         while (rs.next()) {            
@@ -129,7 +129,7 @@ public class Responsitory_ThuocTinhSanPham {
         return lst_ChatLieu;
     }
     public int add_ChatLieu(Model_chatLieu ld) throws SQLException{
-        con = DBCon.DbConnection.getConnection();
+        con = Database.DBConnect.getConnection();
         sql = "insert ChatLieu(IDChatLieu,Ten,NgayTao,NgaySua,TrangThai) values(?,?,GETDATE(),GETDATE(),?)";
         pre = con.prepareStatement(sql);
         pre.setObject(1, ld.getMaChatLieu());
@@ -139,7 +139,7 @@ public class Responsitory_ThuocTinhSanPham {
     }
     public int update_ChatLieu(Model_chatLieu ld) throws SQLException{
         sql = "update ChatLieu set Ten = ?,NgaySua = GETDATE(),TrangThai = ? where IDChatLieu = ?";
-        con = DBCon.DbConnection.getConnection();
+        con = Database.DBConnect.getConnection();
         pre = con.prepareStatement(sql);
         pre.setObject(1, ld.getTenChatLieu());
         pre.setObject(2, ld.getTrangThai());
@@ -149,7 +149,7 @@ public class Responsitory_ThuocTinhSanPham {
     public ArrayList<Model_DeGiay> getAll_DeGiay() throws SQLException{
         sql = "select IDDeGiay,Ten,TrangThai from DeGiay";
         ArrayList<Model_DeGiay> lst_DeGiay = new ArrayList<>();
-        con = DBCon.DbConnection.getConnection();
+        con = Database.DBConnect.getConnection();
         stm = con.createStatement();
         rs = stm.executeQuery(sql);
         while (rs.next()) {            
@@ -159,7 +159,7 @@ public class Responsitory_ThuocTinhSanPham {
         return lst_DeGiay;
     }
     public int add_DeGiay(Model_DeGiay ld) throws SQLException{
-        con = DBCon.DbConnection.getConnection();
+        con = Database.DBConnect.getConnection();
         sql = "insert DeGiay(IDDeGiay,Ten,NgayTao,NgaySua,TrangThai) values(?,?,GETDATE(),GETDATE(),?)";
         pre = con.prepareStatement(sql);
         pre.setObject(1, ld.getMaDeGiay());
@@ -169,7 +169,7 @@ public class Responsitory_ThuocTinhSanPham {
     }
     public int update_DeGiay(Model_DeGiay ld) throws SQLException{
         sql = "update DeGiay set Ten = ?,NgaySua = GETDATE(),TrangThai = ? where IDDeGiay = ?";
-        con = DBCon.DbConnection.getConnection();
+        con = Database.DBConnect.getConnection();
         pre = con.prepareStatement(sql);
         pre.setObject(1, ld.getTenDeGiay());
         pre.setObject(2, ld.getTrangThai());

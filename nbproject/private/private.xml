@@ -2,6 +2,33 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/Users/hvyrnslashdot/code/Du_an1/src/Model/Model_HoaDon.java</file>
+            <file>file:/Users/hvyrnslashdot/code/Du_an1/src/Model/Model_Login.java</file>
+            <file>file:/Users/hvyrnslashdot/code/Du_an1/src/Database/DBConnect.java</file>
+            <file>file:/Users/hvyrnslashdot/code/Du_an1/src/Model/Model_SPCT.java</file>
+            <file>file:/Users/hvyrnslashdot/code/Du_an1/src/Model/Model_NhanVien.java</file>
+            <file>file:/Users/hvyrnslashdot/code/Du_an1/src/View/SanPham.java</file>
+            <file>file:/Users/hvyrnslashdot/code/Du_an1/src/View/khachHang.java</file>
+            <file>file:/Users/hvyrnslashdot/code/Du_an1/src/View/NhanVien.java</file>
+            <file>file:/Users/hvyrnslashdot/code/Du_an1/src/Repository/Repository_NhanVien.java</file>
+            <file>file:/Users/hvyrnslashdot/code/Du_an1/src/Repository/Repository_login.java</file>
+            <file>file:/Users/hvyrnslashdot/code/Du_an1/src/View/QuanLY.java</file>
+            <file>file:/Users/hvyrnslashdot/code/Du_an1/src/Repository/Respository_SPCT.java</file>
+            <file>file:/Users/hvyrnslashdot/code/Du_an1/src/Repository/Repository_BanHang.java</file>
+            <file>file:/Users/hvyrnslashdot/code/Du_an1/src/View/BanHang.java</file>
+            <file>file:/Users/hvyrnslashdot/code/Du_an1/src/View/login.java</file>
+            <file>file:/Users/hvyrnslashdot/code/Du_an1/src/Model/Model_khuyenMai.java</file>
+            <file>file:/Users/hvyrnslashdot/code/Du_an1/src/Repository/Responsitory_khuyenMai.java</file>
+            <file>file:/Users/hvyrnslashdot/code/Du_an1/src/View/KhuyenMai.java</file>
+            <file>file:/Users/hvyrnslashdot/code/Du_an1/src/Model/Model_kichThuoc.java</file>
+            <file>file:/Users/hvyrnslashdot/code/Du_an1/src/Repository/Responsitory_SanPham.java</file>
+            <file>file:/Users/hvyrnslashdot/code/Du_an1/src/Model/Model_HoaDonChiTiet.java</file>
+            <file>file:/Users/hvyrnslashdot/code/Du_an1/src/Model/Model_thongke.java</file>
+            <file>file:/Users/hvyrnslashdot/code/Du_an1/src/Model/Model_khachHang.java</file>
+            <file>file:/Users/hvyrnslashdot/code/Du_an1/src/Model/Model_DeGiay.java</file>
+            <file>file:/Users/hvyrnslashdot/code/Du_an1/src/Model/Model_SanPham.java</file>
+            <file>file:/Users/hvyrnslashdot/code/Du_an1/src/Repository/Global.java</file>
+        </group>
     </open-files>
 </project-private>

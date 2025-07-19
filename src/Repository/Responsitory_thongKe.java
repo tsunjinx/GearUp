@@ -22,7 +22,7 @@ public class Responsitory_thongKe {
         sql = "select SoThuTu,IDHoaDon,IDKhachHang,NgayMuaHang,TongTien,TrangThai from HoaDon where TrangThai=1 and YEAR(NgayMuaHang) = ? ";
         ArrayList<Model_thongke> list = new ArrayList<>();
         try {
-            con = DBCon.DbConnection.getConnection();
+            con = Database.DBConnect.getConnection();
             pre = con.prepareStatement(sql);
                             pre.setObject(1, nam);
             res = pre.executeQuery();
@@ -54,7 +54,7 @@ public class Responsitory_thongKe {
         sql = "select SoThuTu,IDHoaDon,IDKhachHang,NgayMuaHang,TongTien,TrangThai from HoaDon where TrangThai=2 and YEAR(NgayMuaHang) = ? ";
         ArrayList<Model_thongke> list = new ArrayList<>();
         try {
-            con = DBCon.DbConnection.getConnection();
+            con = Database.DBConnect.getConnection();
             pre = con.prepareStatement(sql);
                             pre.setObject(1, nam);
             res = pre.executeQuery();
@@ -88,7 +88,7 @@ public class Responsitory_thongKe {
 "  CONVERT(DATE, NgayMuaHang) = CONVERT(DATE, GETDATE());";
         ArrayList<Model_thongke> list = new ArrayList<>();
         try {
-            con = DBCon.DbConnection.getConnection();
+            con = Database.DBConnect.getConnection();
             pre = con.prepareStatement(sql);
                            
             res = pre.executeQuery();
@@ -120,7 +120,7 @@ public class Responsitory_thongKe {
 "          \"FROM HoaDon WHERE YEAR(NgayMuaHang)= 2024 and MONTH(NgayMuaHang) = ? ";
         ArrayList<Model_thongke> list = new ArrayList<>();
         try {
-            con = DBCon.DbConnection.getConnection();
+            con = Database.DBConnect.getConnection();
             pre = con.prepareStatement(sql);
                    pre.setObject(1, thang);         
             res = pre.executeQuery();
@@ -151,7 +151,7 @@ public class Responsitory_thongKe {
         String sql = "SELECT SoThuTu, IDHoaDon, IDKhachHang, NgayMuaHang, TongTien, TrangThai " +
                      "FROM HoaDon WHERE NgayMuaHang BETWEEN ? AND ?";
         ArrayList<Model_thongke> list = new ArrayList<>();
-        try (Connection con = DBCon.DbConnection.getConnection();
+        try (Connection con = Database.DBConnect.getConnection();
              PreparedStatement pre = con.prepareStatement(sql)) {
             
             // Thiết lập giá trị cho các tham số ngày bắt đầu và ngày kết thúc
@@ -186,7 +186,7 @@ public class Responsitory_thongKe {
         sql = "select SoThuTu,IDHoaDon,IDKhachHang,NgayMuaHang,TongTien,TrangThai from HoaDon ";
         ArrayList<Model_thongke> list = new ArrayList<>();
         try {
-            con = DBCon.DbConnection.getConnection();
+            con = Database.DBConnect.getConnection();
             pre = con.prepareStatement(sql);
                             
             res = pre.executeQuery();

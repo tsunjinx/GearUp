@@ -8,7 +8,6 @@ import Model.Model_HoaDon;
 import Model.Model_HoaDonChiTiet;
 import Model.Model_SPCT;
 import Model.Model_khachHang;
-import Model.Model_voucher;
 import Repository.Global;
 import Repository.Repository_BanHang;
 import Repository.Respository_SPCT;
@@ -21,7 +20,6 @@ import Repository.Responsitory_khachHang;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import Repository.Responsitory_Voucher;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -35,7 +33,6 @@ public class BanHang extends javax.swing.JPanel {
     Respository_SPCT repo_spct;
     Repository_BanHang repo_bh;
     Responsitory_khachHang repo_kh;
-    Responsitory_Voucher repo_voucher;
     int index1 = -1;
     int index2;
     int index3;
@@ -48,22 +45,11 @@ public class BanHang extends javax.swing.JPanel {
         repo_spct = new Respository_SPCT();
         repo_bh = new Repository_BanHang();
         repo_kh = new Responsitory_khachHang();
-        repo_voucher = new Responsitory_Voucher();
         filltable_SPCT(repo_spct.GetAll_SPCT());
         filltable_HD(repo_bh.getAll_HD());
         reloadTienKhachDua();
         reloadSDT();
-        model();
         reloadTienKhachCanTra();
-    }
-
-    public void model() throws SQLException {
-        cboVoucher.removeAllItems();
-        for (Model_voucher x : repo_voucher.getAll_voucher()) {
-            if (x.getTrangThai() == 1) {
-                cboVoucher.addItem(x.getTen());
-            }
-        }
     }
 
     public void reloadTienKhachDua() {
@@ -93,21 +79,17 @@ public class BanHang extends javax.swing.JPanel {
     }
 
     public void reloadTienKhachCanTra() {
-        cboVoucher.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    if (tbl_danhSachHoaDon.getRowCount() == 0) {
-                        lblTongTien.setText("0");
-                        lblKhachCanTra.setText("0");
-                    } else {
-                        TongTien();
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(BanHang.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        // Simplified - no voucher logic needed
+        if (tbl_danhSachHoaDon.getRowCount() == 0) {
+            lblTongTien.setText("0");
+            lblKhachCanTra.setText("0");
+        } else {
+            try {
+                TongTien();
+            } catch (SQLException ex) {
+                Logger.getLogger(BanHang.class.getName()).log(Level.SEVERE, null, ex);
             }
-        });
+        }
     }
 
     public void reloadSDT() {
@@ -161,15 +143,6 @@ public class BanHang extends javax.swing.JPanel {
                 return false;
             }
         }
-    }
-
-    public String getIDVoucher() throws SQLException {
-        for (Model_voucher x : repo_voucher.getAll_voucher()) {
-            if (cboVoucher.getSelectedItem().equals(x.getTen())) {
-                return x.getId();
-            }
-        }
-        return "";
     }
 
     public void filltable_SPCT(ArrayList<Model_SPCT> spct) throws SQLException {
@@ -255,33 +228,10 @@ public class BanHang extends javax.swing.JPanel {
         if (check(index1)) {
             for (Model_HoaDonChiTiet x : repo_bh.GetAllHoaDonChiTiet((String) tbl_danhSachHoaDon.getValueAt(index1, 1))) {
                 Tong = Tong + (x.getSoLuong() * x.getDonGia());
-                lblTongTien.setText(String.valueOf(Tong));
-                for (Model_voucher y : repo_voucher.getAll_voucher()) {
-                    if (getIDVoucher().equals(y.getId()) && readTien(Tong)) {
-                        int a = Tong * y.getPhanTramGiam();
-                        if (a > y.getGiaTriGiamToiDa()) {
-                            a = y.getGiaTriGiamToiDa();
-                            lblKhachCanTra.setText(String.valueOf(Tong - a));
-                        } else {
-                            lblKhachCanTra.setText(String.valueOf(Tong - a));
-                        }
-                    }
-                }
             }
+            lblTongTien.setText(String.valueOf(Tong));
+            lblKhachCanTra.setText(String.valueOf(Tong)); // No voucher discount, so total = amount to pay
         }
-    }
-
-    public boolean readTien(int Tong) throws SQLException {
-        for (Model_voucher y : repo_voucher.getAll_voucher()) {
-            if (getIDVoucher().equals(y.getId())) {
-                int a = y.getDonHangToiThieu();
-                if (a > Tong) {
-                    JOptionPane.showMessageDialog(lblTongTien, "Bạn cần mua thêm: " + (a - Tong) + "đ để sử dụng voucher này.");
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 
     public boolean readform() throws SQLException {
@@ -411,8 +361,6 @@ public class BanHang extends javax.swing.JPanel {
         jSeparator2 = new javax.swing.JSeparator();
         btn_thanhToan = new javax.swing.JButton();
         btn_huyHoaDon = new javax.swing.JButton();
-        jLabel16 = new javax.swing.JLabel();
-        cboVoucher = new javax.swing.JComboBox<>();
         lblTienThua = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
@@ -503,8 +451,6 @@ public class BanHang extends javax.swing.JPanel {
             }
         });
 
-        jLabel16.setText("Voucher:");
-
         lblTienThua.setText("0");
 
         jButton1.setText("Reset");
@@ -530,7 +476,6 @@ public class BanHang extends javax.swing.JPanel {
                         .addComponent(btn_huyHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel16)
                             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(jPanel4Layout.createSequentialGroup()
                                     .addComponent(jLabel7)
@@ -555,8 +500,7 @@ public class BanHang extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txt_soDienThoai)
-                                    .addComponent(txt_tenKhachHang)
-                                    .addComponent(cboVoucher, 0, 148, Short.MAX_VALUE))))
+                                    .addComponent(txt_tenKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
@@ -574,10 +518,6 @@ public class BanHang extends javax.swing.JPanel {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txt_soDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(cboVoucher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -606,7 +546,7 @@ public class BanHang extends javax.swing.JPanel {
                     .addComponent(btn_huyHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Hóa Đơn", jPanel4);
@@ -836,7 +776,7 @@ public class BanHang extends javax.swing.JPanel {
                 int i = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thanh toán không?");
                 if (i == 0) {
                     try {
-                        repo_bh.updateHD(getIDVoucher(), 1, Integer.parseInt(lblKhachCanTra.getText()), (String) tbl_danhSachHoaDon.getValueAt(index1, 1));
+                        repo_bh.updateHD("", 1, Integer.parseInt(lblKhachCanTra.getText()), (String) tbl_danhSachHoaDon.getValueAt(index1, 1));
                         JOptionPane.showMessageDialog(this, "Thanh toán hóa đơn thành công.");
                         filltable_HD(repo_bh.getAll_HD());
                         mol = (DefaultTableModel) tbl_gioHang.getModel();
@@ -858,7 +798,7 @@ public class BanHang extends javax.swing.JPanel {
             int i = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn hủy không?");
             if (i == 0) {
                 try {
-                    repo_bh.updateHD(getIDVoucher(), 2, Integer.parseInt(lblKhachCanTra.getText()), (String) tbl_danhSachHoaDon.getValueAt(index1, 1));
+                    repo_bh.updateHD("", 2, Integer.parseInt(lblKhachCanTra.getText()), (String) tbl_danhSachHoaDon.getValueAt(index1, 1));
                     TraDuLieu(repo_bh.GetAllHoaDonChiTiet((String) tbl_danhSachHoaDon.getValueAt(index1, 1)));
                     JOptionPane.showMessageDialog(this, "Hủy hóa đơn thành công.");
                     filltable_HD(repo_bh.getAll_HD());
@@ -894,18 +834,12 @@ public class BanHang extends javax.swing.JPanel {
         lblTienThua.setText("0");
         txt_tienKhachDua.setText("");
         try {
-            // TODO add your handling code here:
             filltable_SPCT(repo_spct.GetAll_SPCT());
         } catch (SQLException ex) {
             Logger.getLogger(BanHang.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
             filltable_HD(repo_bh.getAll_HD());
-        } catch (SQLException ex) {
-            Logger.getLogger(BanHang.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            model();
         } catch (SQLException ex) {
             Logger.getLogger(BanHang.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -922,7 +856,7 @@ public class BanHang extends javax.swing.JPanel {
                     lblKhachCanTra.setText("0");
                     Model_khachHang ml = new Model_khachHang(MaKH(), txt_tenKhachHang.getText(), txt_soDienThoai.getText());
                     repo_kh.add_khachHang(ml);
-                    Model_HoaDon hd = new Model_HoaDon(MaHD(), Global.employeeId, GetMaKH(), getIDVoucher(), Integer.parseInt(lblTongTien.getText()), 0);
+                    Model_HoaDon hd = new Model_HoaDon(MaHD(), Global.employeeId, GetMaKH(), "", Integer.parseInt(lblTongTien.getText()), 0);
                     try {
                         mol = (DefaultTableModel) tbl_gioHang.getModel();
                         mol.setRowCount(0);
@@ -936,7 +870,7 @@ public class BanHang extends javax.swing.JPanel {
                     lblTongTien.setText("0");
                     lblKhachCanTra.setText("0");
                     try {
-                        Model_HoaDon hd = new Model_HoaDon(MaHD(), Global.employeeId, checkKH(), getIDVoucher(), Integer.parseInt(lblTongTien.getText()), 0);
+                        Model_HoaDon hd = new Model_HoaDon(MaHD(), Global.employeeId, checkKH(), "", Integer.parseInt(lblTongTien.getText()), 0);
                         mol = (DefaultTableModel) tbl_gioHang.getModel();
                         mol.setRowCount(0);
                         tbl_gioHang.setModel(mol);
@@ -959,11 +893,9 @@ public class BanHang extends javax.swing.JPanel {
     private javax.swing.JButton btn_taoHoaDon;
     private javax.swing.JButton btn_thanhToan;
     private javax.swing.JButton btn_xoaSanPhamGioHang;
-    private javax.swing.JComboBox<String> cboVoucher;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

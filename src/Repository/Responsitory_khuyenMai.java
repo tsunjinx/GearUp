@@ -4,7 +4,7 @@
  */
 package Repository;
 
-import DBCon.DbConnection;
+import Database.DBConnect;
 import Model.Model_HoaDon;
 import Model.Model_khuyenMai;
 import java.sql.Connection;
@@ -23,7 +23,7 @@ public class Responsitory_khuyenMai {
     public Connection con;
 
     public Responsitory_khuyenMai() {
-        con = DbConnection.getConnection();
+        con = DBConnect.getConnection();
     }
 
     public void autoUpdate() throws SQLException {

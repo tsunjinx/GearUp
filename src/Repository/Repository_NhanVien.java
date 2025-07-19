@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Repository;
-import DBCon.DbConnection;
+import Database.DBConnect;
 /**
  *
  * @author PonYanki
@@ -19,14 +19,14 @@ public class Repository_NhanVien {
     private String sql = null;
 
     public Repository_NhanVien() {
-        con = DbConnection.getConnection();
+        con = DBConnect.getConnection();
     }
     
     public ArrayList<Model.Model_NhanVien> getAll() {
         sql = "SELECT SoThuTu,IDNhanVien,Ten,Tuoi,GioiTinh,DiaChi,VaiTro,TenDangNhap,MatKhau,NgayTao,NgaySua,TrangThai FROM NhanVien";
         ArrayList<Model.Model_NhanVien> list = new ArrayList<>();
         try {
-            con = DBCon.DbConnection.getConnection();
+            con = Database.DBConnect.getConnection();
             pr = con.prepareStatement(sql);
             rs = pr.executeQuery();
             while (rs.next()) {
@@ -80,7 +80,7 @@ public class Repository_NhanVien {
                 + "	TrangThai = ?\n"
                 + "WHERE IDNhanVien = ?";
         try {
-            con = DBCon.DbConnection.getConnection();
+            con = Database.DBConnect.getConnection();
             pr = con.prepareStatement(sql);
             pr.setObject(1, nv.getTen());
             pr.setObject(2, nv.getTuoi());
@@ -103,7 +103,7 @@ public class Repository_NhanVien {
                 + "Where ten like ?";
         ArrayList<Model_NhanVien> list_nv = new ArrayList<>();
         try {
-            con = DBCon.DbConnection.getConnection();
+            con = Database.DBConnect.getConnection();
             pr = con.prepareStatement(sql);
             pr.setObject(1, "%" + manv_cantim + "%");
             rs = pr.executeQuery();
@@ -148,7 +148,7 @@ public class Repository_NhanVien {
         sql = "INSERT INTO NhanVien(IDNhanVien,Ten,Tuoi,GioiTinh,DiaChi,VaiTro,TenDangNhap,MatKhau,NgayTao,NgaySua,TrangThai) \n"
                 + "VALUES(?,?,?,?,?,?,?,?,GETDATE(),GETDATE(),?)";
         try {// thêm được
-            con = DBCon.DbConnection.getConnection();
+            con = Database.DBConnect.getConnection();
             pr = con.prepareStatement(sql);
             // nếu trong sql có ? thì phải setObject
             pr.setObject(1, nv.getIDNhanVien());

@@ -4,7 +4,6 @@
  */
 package View;
 
-import Model.Model_HoaDon;
 import Model.Model_HoaDonChiTiet;
 import Repository.Repository_BanHang;
 import java.sql.SQLException;
@@ -32,10 +31,10 @@ public class HoaDon extends javax.swing.JPanel {
         filltable_HD(repo_bh.getAll_HD());
     }
     
-    public void filltable_HD(ArrayList<Model_HoaDon> hd) {
+    public void filltable_HD(ArrayList<Model.Model_HoaDon> hd) {
         mol = (DefaultTableModel) tbl_DanhSachHoaDon.getModel();
         mol.setRowCount(0);
-        for (Model_HoaDon x : hd) {
+        for (Model.Model_HoaDon x : hd) {
             if (x.getTrangThai() == 1 || x.getTrangThai() == 2) {
                 mol.addRow(x.ToDataRow1());
             }

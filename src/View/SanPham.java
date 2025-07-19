@@ -2,7 +2,6 @@ package View;
 
 import Model.Model_DeGiay;
 import Model.Model_SPCT;
-import Model.Model_SanPham;
 import Model.Model_chatLieu;
 import Model.Model_kichThuoc;
 import Model.Model_loaiDay;
@@ -41,10 +40,10 @@ public class SanPham extends javax.swing.JPanel {
         txt_tongSP.setText(String.valueOf(dem));
     }
 
-    public void fillTable(ArrayList<Model_SanPham> list) {
+    public void fillTable(ArrayList<Model.Model_SanPham> list) {
         mol = (DefaultTableModel) tbl_bang.getModel();
         mol.setRowCount(0);
-        for (Model_SanPham x : list) {
+        for (Model.Model_SanPham x : list) {
             mol.addRow(x.toDataRow());
         }
         tbl_bang.setModel(mol);
@@ -66,7 +65,7 @@ public class SanPham extends javax.swing.JPanel {
         }
     }
 
-    private Model_SanPham readForm1() {
+    private Model.Model_SanPham readForm1() {
         String id;
         String ten;
         int tinhtrang;
@@ -96,10 +95,10 @@ public class SanPham extends javax.swing.JPanel {
                 return null;
             }
         }
-        return new Model_SanPham(id, ten, tinhtrang);
+        return new Model.Model_SanPham(id, ten, tinhtrang);
     }
 
-    private Model_SanPham readForm11() {
+    private Model.Model_SanPham readForm11() {
         String id;
         String ten;
         int tinhtrang;
@@ -118,7 +117,7 @@ public class SanPham extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập Mã sản phẩm");
             return null;
         }
-        return new Model_SanPham(id, ten, tinhtrang);
+        return new Model.Model_SanPham(id, ten, tinhtrang);
     }
 
     public void model() throws SQLException {
@@ -128,7 +127,7 @@ public class SanPham extends javax.swing.JPanel {
         cbo_mauSac.removeAllItems();
         cbo_kichThuoc.removeAllItems();
         cbo_deGiay.removeAllItems();
-        for (Model_SanPham x : repo.getAll()) {
+        for (Model.Model_SanPham x : repo.getAll()) {
             if (x.getTrangThai() == 1) {
                 txt_tenSanPham.addItem(x.getTenSanPham());
             }
@@ -160,7 +159,7 @@ public class SanPham extends javax.swing.JPanel {
         }
     }
 
-    private Model_SanPham readForm() {
+    private Model.Model_SanPham readForm() {
         String id;
         String ten;
         int tinhtrang;
@@ -171,7 +170,7 @@ public class SanPham extends javax.swing.JPanel {
         } else {
             tinhtrang = 0;
         }
-        return new Model_SanPham(id, ten, tinhtrang);
+        return new Model.Model_SanPham(id, ten, tinhtrang);
     }
 
     /**

@@ -4,11 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import Repository.Responsitory_khuyenMai;
 import java.sql.SQLException;
 
 public class Model_SPCT {
-     Responsitory_khuyenMai repo_km;
     public String IDSPCT;
     public String Ten;
     public int TheLoai;
@@ -23,7 +21,6 @@ public class Model_SPCT {
     public String TenMauSac;
 
     public Model_SPCT() {
-        repo_km = new Responsitory_khuyenMai();
     }
 
     public Model_SPCT(String IDSPCT, String Ten, int TheLoai, int DonGia, int SoLuong, String TenLoaiDay, String TenChatLieu, String TenSize, String TenMauSac) {
@@ -169,14 +166,9 @@ public class Model_SPCT {
         };
     }
     public Object[] toDataRow1() throws SQLException {
-        int a = 0;
-        for (Model_khuyenMai x : repo_km.getAll_khuyenMai()) {
-            if(getIDKhuyenMai().equals(x.getMaKhuyenMai())){
-                a = x.getGiamGia();
-            }
-        }
+        // Removed voucher/promotion logic - no discount calculation needed
         return new Object[]{
-            getIDSPCT(), getTen(), getTheLoai() == 1 ? "Nam" : "Nữ", getDonGia(),getDonGia()*a/100, getSoLuong(), getTenLoaiDay(), getTenChatLieu(), getTenDeGiay(), getTenSize(), getTenMauSac(), getTrangThai() == 1 ? "Hoạt động" : "Không hoạt động"
+            getIDSPCT(), getTen(), getTheLoai() == 1 ? "Nam" : "Nữ", getDonGia(), 0, getSoLuong(), getTenLoaiDay(), getTenChatLieu(), getTenDeGiay(), getTenSize(), getTenMauSac(), getTrangThai() == 1 ? "Hoạt động" : "Không hoạt động"
         };
     }
 }

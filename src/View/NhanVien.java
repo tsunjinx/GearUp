@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package View;
 
 import Model.Model_NhanVien;
@@ -9,8 +6,6 @@ import Model.Model_NhanVien;
  *
  * @author PonYanki
  */
-import Model.Model_NhanVien;
-import Repository.Repository_NhanVien;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -20,7 +15,7 @@ public class NhanVien extends javax.swing.JPanel {
     /**
      * Creates new form SanPham
      */
-    private Repository.Repository_NhanVien repo = new Repository_NhanVien();
+    private Repository.Repository_NhanVien repo = new Repository.Repository_NhanVien();
     private DefaultTableModel mol = new DefaultTableModel();
     private int i = -1;
 
@@ -32,7 +27,7 @@ public class NhanVien extends javax.swing.JPanel {
     void fillTable(ArrayList<Model.Model_NhanVien> list) {
         mol = (DefaultTableModel) tbl_bangNhanVien.getModel();
         mol.setRowCount(0);
-        for (Model_NhanVien x : list) {
+        for (Model.Model_NhanVien x : list) {
             mol.addRow(x.toDataRow());
         }
     }
@@ -85,7 +80,7 @@ public class NhanVien extends javax.swing.JPanel {
         }
     }
 
-    public Model_NhanVien readFrom() {
+    public Model.Model_NhanVien readFrom() {
         if (txt_maNhanVien.getText().equals(" ")) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập mã nhân viên.");
             txt_maNhanVien.requestFocus();
@@ -119,7 +114,7 @@ public class NhanVien extends javax.swing.JPanel {
             txt_matKhau.requestFocus();
             return null;
         }
-        Model_NhanVien nv = new Model_NhanVien(txt_maNhanVien.getText(), txt_tenNhanVien.getText(), Integer.parseInt(txt_tuoiNhanVien.getText()), rdo_nam.isSelected() ? true : false, txt_diaChi.getText(), rdo_NhanVien.isSelected() ? false : true, txt_taiKhoan.getText(), txt_matKhau.getText(), TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY, rdo_DangHoatDong.isSelected() ? true : false);
+        Model.Model_NhanVien nv = new Model.Model_NhanVien(txt_maNhanVien.getText(), txt_tenNhanVien.getText(), Integer.parseInt(txt_tuoiNhanVien.getText()), rdo_nam.isSelected() ? true : false, txt_diaChi.getText(), rdo_NhanVien.isSelected() ? false : true, txt_taiKhoan.getText(), txt_matKhau.getText(), TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY, rdo_DangHoatDong.isSelected() ? true : false);
         return nv;
     }
 

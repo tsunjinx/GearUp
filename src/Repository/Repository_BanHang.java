@@ -5,7 +5,7 @@
 package Repository;
 
 import java.sql.*;
-import DBCon.DbConnection;
+import Database.DBConnect;
 import Model.Model_HoaDon;
 import Model.Model_HoaDonChiTiet;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class Repository_BanHang {
     public Connection con;
 
     public Repository_BanHang() {
-        con = DbConnection.getConnection();
+        con = DBConnect.getConnection();
     }
 
     public ArrayList<Model_HoaDon> getAll_HD() throws SQLException {

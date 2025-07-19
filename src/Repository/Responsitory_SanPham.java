@@ -23,7 +23,7 @@ public class Responsitory_SanPham {
         sql = "select SoThuTu , IDSanPham, TenSanPham , NgayTao , NgaySua , TrangThai from SanPham";
         ArrayList<Model_SanPham> list = new ArrayList<>();
         try {
-            con = DBCon.DbConnection.getConnection();
+            con = Database.DBConnect.getConnection();
             pre = con.prepareStatement(sql);
             res = pre.executeQuery();
             while (res.next()) {
@@ -52,7 +52,7 @@ public class Responsitory_SanPham {
     public int add_SanPham(Model_SanPham ml) {
         sql = "insert into SanPham(IDSanPham, TenSanPham , NgayTao , NgaySua , TrangThai) values (?,?,GETDATE(),GETDATE(),?) ";
         try {
-            con = DBCon.DbConnection.getConnection();
+            con = Database.DBConnect.getConnection();
             pre = con.prepareStatement(sql);
             pre.setObject(1, ml.getIDSanPham());
             pre.setObject(2, ml.getTenSanPham());
@@ -67,7 +67,7 @@ public class Responsitory_SanPham {
     public int update_SanPham(String ID, Model_SanPham ml) {
         sql = "update  SanPham set IDSanPham=?, TenSanPham=? , NgaySua = GETDATE() , TrangThai=? where IDSanPham=? ";
         try {
-            con = DBCon.DbConnection.getConnection();
+            con = Database.DBConnect.getConnection();
             pre = con.prepareStatement(sql);
             pre.setObject(1, ml.getIDSanPham());
             pre.setObject(2, ml.getTenSanPham());
@@ -83,7 +83,7 @@ public class Responsitory_SanPham {
     public int delete_SanPham(String ma) {
         sql = "delete from SanPham where IDSanPham like ? ";
         try {
-            con = DBCon.DbConnection.getConnection();
+            con = Database.DBConnect.getConnection();
             pre = con.prepareStatement(sql);
             pre.setObject(1, ma);
 
@@ -97,7 +97,7 @@ public class Responsitory_SanPham {
         sql = "select SoThuTu , IDSanPham, TenSanPham , NgayTao , NgaySua , TrangThai from SanPham where TrangThai =?";
         ArrayList<Model_SanPham> list = new ArrayList<>();
         try {
-            con = DBCon.DbConnection.getConnection();
+            con = Database.DBConnect.getConnection();
             pre = con.prepareStatement(sql);
             pre.setObject(1,1 );
             res = pre.executeQuery();
@@ -127,7 +127,7 @@ public class Responsitory_SanPham {
         sql = "select SoThuTu , IDSanPham, TenSanPham , NgayTao , NgaySua , TrangThai from SanPham where TrangThai =?";
         ArrayList<Model_SanPham> list = new ArrayList<>();
         try {
-            con = DBCon.DbConnection.getConnection();
+            con = Database.DBConnect.getConnection();
             pre = con.prepareStatement(sql);
             pre.setObject(1,0 );
             res = pre.executeQuery();
@@ -158,7 +158,7 @@ public class Responsitory_SanPham {
         sql="select SoThuTu , IDSanPham, TenSanPham , NgayTao , NgaySua , TrangThai from SanPham where IDSanPham like ?";
         ArrayList<Model_SanPham> list_SP= new ArrayList();
         try {// kết nối data lấy dữ liệu ok
-            con = DBCon.DbConnection.getConnection();
+            con = Database.DBConnect.getConnection();
             pre=con.prepareStatement(sql);// chuẩn bị thực hiện lệnh
             pre.setObject(1, "%"+ma1+"%");
             res=pre.executeQuery();// kết quả truy vấn

@@ -302,7 +302,7 @@ public class ThongKe extends javax.swing.JPanel {
         // Cập nhật tổng doanh thu và các thống kê khác
         updateTotalRevenu_thang();
     }
-});
+        });
        
        int currentMonth = LocalDate.now().getMonthValue(); // Tháng hiện tại (1 - 12)
 

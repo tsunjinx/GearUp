@@ -13,7 +13,7 @@ public class Repository_login {
     public boolean dangNhap(String taiKhoan, String matKhau){
     String sql = "SELECT TenDangNhap, MatKhau from NhanVien WHERE TenDangNhap = ? AND MatKhau = ?";
      try {
-            Connection con = DBCon.DbConnection.getConnection();
+            Connection con = Database.DBConnect.getConnection();
             PreparedStatement pr = con.prepareStatement(sql);
             pr.setObject(1, taiKhoan);
             pr.setObject(2, matKhau);
